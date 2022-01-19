@@ -1,0 +1,9 @@
+Chat-Java/Chat-Java.iml
+Chat-Java/client/client.iml
+Chat-Java/server/server.iml
+Chat-Java/network/network.iml
+Chat-Java/client/target
+Chat-Java/server/target
+Chat-Java/network/target
+.idea
+
