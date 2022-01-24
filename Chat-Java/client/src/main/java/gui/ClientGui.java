@@ -1,6 +1,7 @@
 package gui;
 
 import clientlogic.Client;
+import clientlogic.Launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -38,13 +39,16 @@ public class ClientGui {
         controller.setClient(client);
 
         stage.setOnCloseRequest(event -> {
+            if (!InformationAlertExample.getInformationExit()) {event.consume();}
             System.out.println("Клиент закрыт");
             try {
                 client.setCorrectShutdown(true);
                 client.getConnection().disconnect();
             } catch (Exception e) {
-                System.out.println("Корректное завершение работы клиента");
+                e.printStackTrace();
             }
+            Launch.getFile().delete();
+            if (!InformationAlertExample.getInformationExit()) {event.consume();}
         });
     }
 

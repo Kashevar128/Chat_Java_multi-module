@@ -1,5 +1,6 @@
 package gui;
 
+import clientlogic.Launch;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
@@ -28,7 +29,7 @@ public class ErrorAlertExample {
             return;
         }
         getErrorConnectionFatal();
-        System.exit(0);
+        Launch.exitClient();
     }
 
     public static void getErrorConnectionFatal() {
@@ -48,7 +49,7 @@ public class ErrorAlertExample {
         alert.setContentText("Нажмите ОК для выхода из приложения.");
 
         alert.showAndWait();
-        System.exit(0);
+        Launch.exitClient();
 
     }
 

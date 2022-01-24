@@ -1,34 +1,45 @@
 package gui;
 
-import javafx.application.Application;
+import clientlogic.Launch;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class AuthGui extends Application {
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        Parent auth = FXMLLoader.load(getClass().getResource("/fxml/auth.fxml"));
-        primaryStage.setTitle("Авторизация");
-        primaryStage.setScene(new Scene(auth));
-        primaryStage.setResizable(false);
-        primaryStage.show();
+import java.io.IOException;
+
+public class AuthGui {
+    private Stage stage;
+
+    public AuthGui() {
+
+        Parent auth = null;
+        try {
+            auth = FXMLLoader.load(getClass().getResource("/fxml/auth.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stage = new Stage();
+        stage.setTitle("Авторизация");
+        stage.setScene(new Scene(auth));
+        stage.setResizable(false);
+        stage.show();
 
         new Thread(() -> {
             try {
                 Thread.sleep(180000);
                 Platform.runLater(() -> {
-                    primaryStage.close();
+                    stage.close();
                 });
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }).start();
 
-        primaryStage.setOnCloseRequest(event -> {
-            System.exit(0);
+        stage.setOnCloseRequest(event -> {
+            if (!InformationAlertExample.getInformationExit()) {event.consume();}
+            Launch.exitClient();
         });
 
     }

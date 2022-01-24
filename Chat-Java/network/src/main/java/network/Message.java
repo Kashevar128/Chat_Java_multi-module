@@ -11,6 +11,7 @@ public class Message<T, V> implements Serializable, Comparable<Message> {
     private ClientProfile profile;
     private String stringValue;
     private boolean inOrOut;
+    private boolean testM;
     private Date sendAt;
     private long sendingTime;
 
@@ -32,6 +33,10 @@ public class Message<T, V> implements Serializable, Comparable<Message> {
         this.obj_2 = obj_2;
         setSendAt(new Date());
         setSendingTime(System.nanoTime());
+    }
+
+    public Message (boolean flag, TypeMessage typeMessage) {
+        setTestM(flag);
     }
 
     public boolean isInOrOut() {
@@ -76,6 +81,14 @@ public class Message<T, V> implements Serializable, Comparable<Message> {
 
     public void setSendingTime(long sendingTime) {
         this.sendingTime = sendingTime;
+    }
+
+    public void setTestM(boolean testM) {
+        this.testM = testM;
+    }
+
+    public boolean isTestM() {
+        return testM;
     }
 
     @Override

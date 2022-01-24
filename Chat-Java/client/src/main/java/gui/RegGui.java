@@ -1,5 +1,6 @@
 package gui;
 
+import clientlogic.Launch;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,7 +23,8 @@ public class RegGui {
         stage.show();
 
         stage.setOnCloseRequest(event -> {
-            System.exit(0);
+            if (!InformationAlertExample.getInformationExit()) {event.consume();}
+            Launch.exitClient();
         });
 
         new Thread(() -> {

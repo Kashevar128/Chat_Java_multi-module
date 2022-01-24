@@ -38,7 +38,7 @@ public class DataBase implements AuthService {
     public static Connection getConnection() throws SQLException {
         @Language("SQL")
         String urlMySql = "jdbc:mysql://localhost:3306/test";
-        String urlH2 = "jdbc:h2:./client/src/main/resources/db/demodb";
+        String urlH2 ="jdbc:h2:./Chat-Java/client/src/main/resources/db/demodb";
         String user = "root";
         String pass = "root";
         //return DriverManager.getConnection(urlMySql, user, pass);
@@ -65,9 +65,8 @@ public class DataBase implements AuthService {
             try (Statement statement = connection.createStatement()) {
                 statement.execute(query_01);
             }
-        }
-        catch (SQLException e) {
-        e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
             ErrorAlertExample.getErrorConnectionSQLFatal();
         }
     }
@@ -102,7 +101,7 @@ public class DataBase implements AuthService {
     @Override
     public boolean addUser(String name, String pass) throws Exception {
         init();
-        if(auth(name, pass)) {
+        if (auth(name, pass)) {
             WarningAlertExample.getWarningRepeatUser();
             return false;
         }
@@ -112,7 +111,7 @@ public class DataBase implements AuthService {
             try (PreparedStatement statement = connection.prepareStatement(query_01)) {
                 statement.setString(1, name);
                 statement.setString(2, pass);
-                statement.setBytes(3,Avatar.createAvatar(name));
+                statement.setBytes(3, Avatar.createAvatar(name));
                 statement.executeUpdate();
                 logger.info("Операция добавления нового пользователя прошла успешно.");
                 InformationAlertExample.getInformationRegistrationComplete(name);

@@ -1,13 +1,12 @@
 package server;
 
+import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import network.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
 import java.io.*;
 import java.net.ServerSocket;
 import java.util.ArrayList;
@@ -29,6 +28,7 @@ public class ChatServer extends JFrame implements TCPConnectionListener, ActionL
     private final JTextArea textArea = new JTextArea(); // Создаем поле, которое будет отражать диалоги
     private final JTextField fieldNickname = new JTextField("Admin"); // Поле с ником пользователя
     private final JTextField fieldInput = new JTextField(); // Поле для ввода сообщений
+    private final Checkbox testMode = new Checkbox("Тестовый режим");
     private TCPConnection connection = null;
     private static final String NAME_SERVER = "Admin";
     private ClientProfile serverProfile;
@@ -44,9 +44,12 @@ public class ChatServer extends JFrame implements TCPConnectionListener, ActionL
         textArea.setEditable(false); // Запрет на редактирование диалогового окна
         textArea.setLineWrap(true); // Автоматический перенос строк
         fieldInput.addActionListener(this); // Добавить на поле событие при нажатии Enter
+
+
         add(textArea, BorderLayout.CENTER); // Добавляем диалоговое поле на окно клиента (с типом размещения BorderLayout) по центру
         add(fieldInput, BorderLayout.SOUTH); // Добавляем поле ввода сообщений на юг окна клиента
         add(fieldNickname, BorderLayout.NORTH); // Добавляем поле никнейма на север окна клиента
+        add(testMode, BorderLayout.NORTH);
         setResizable(false);
 
         this.addWindowListener(new WindowListener() {

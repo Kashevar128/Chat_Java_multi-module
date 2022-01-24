@@ -5,9 +5,12 @@ import javafx.application.Platform;
 import javafx.scene.image.Image;
 import network.*;
 
+import java.io.File;
 import java.io.IOException;
+
 import java.net.InetAddress;
 import java.net.SocketException;
+
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
@@ -20,7 +23,11 @@ public class Client implements TCPConnectionListener { // делаем насл�
     org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(Client.class);
 
     static {
-        IP_ADDR = "25.82.199.182";//InetAddress.getLocalHost().getHostAddress();
+        try {
+            IP_ADDR = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
     }
 
     private static final int PORT = 8189; // Переменная с портом
@@ -34,6 +41,7 @@ public class Client implements TCPConnectionListener { // делаем насл�
 
 
     public Client(ClientGuiController controller, String name, ClientGui clientGui) throws IOException {
+
         this.clientGui = clientGui;
         this.controller = controller;
         loginUser = name;
@@ -48,6 +56,7 @@ public class Client implements TCPConnectionListener { // делаем насл�
         });
 
         connection = connect();
+
     }
 
     public TCPConnection getConnection() {
