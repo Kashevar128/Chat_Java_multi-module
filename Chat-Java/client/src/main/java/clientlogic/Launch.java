@@ -22,20 +22,22 @@ public class Launch {
     }
 
     private static void running() {
-        setFile(new File("Chat-Java/client/src/main/resources/values/run.txt"));
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-                Platform.startup(() -> new AuthGui());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else return;
+//        setFile(new File("Chat-Java/client/src/main/resources/values/run.txt"));
+//        if (!file.exists()) {
+//            try {
+//                file.createNewFile();
+//                Platform.startup(() -> new AuthGui());
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        } else return;
+
+        Platform.startup(()->new AuthGui());
 
     }
 
     public static void exitClient() {
-        Launch.getFile().delete();
+//        Launch.getFile().delete();
         System.exit(0);
     }
 

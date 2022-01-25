@@ -47,8 +47,8 @@ public class ClientGui {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Launch.getFile().delete();
-            if (!InformationAlertExample.getInformationExit()) {event.consume();}
+//            Launch.getFile().delete();
+         if (!InformationAlertExample.getInformationExit()) {event.consume();}
         });
     }
 

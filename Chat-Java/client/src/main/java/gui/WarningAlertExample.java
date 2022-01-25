@@ -28,4 +28,12 @@ public class WarningAlertExample {
         alert.showAndWait();
     }
 
+    public static void getWarningIsLogged() {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setHeaderText("Вы уже вошли в систему");
+        alert.setContentText("Нажмите ОК для продолжения.");
+
+        alert.showAndWait();
+    }
+
 }

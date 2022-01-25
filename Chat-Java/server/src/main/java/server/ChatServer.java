@@ -28,7 +28,6 @@ public class ChatServer extends JFrame implements TCPConnectionListener, ActionL
     private final JTextArea textArea = new JTextArea(); // Создаем поле, которое будет отражать диалоги
     private final JTextField fieldNickname = new JTextField("Admin"); // Поле с ником пользователя
     private final JTextField fieldInput = new JTextField(); // Поле для ввода сообщений
-    private final Checkbox testMode = new Checkbox("Тестовый режим");
     private TCPConnection connection = null;
     private static final String NAME_SERVER = "Admin";
     private ClientProfile serverProfile;
@@ -49,7 +48,6 @@ public class ChatServer extends JFrame implements TCPConnectionListener, ActionL
         add(textArea, BorderLayout.CENTER); // Добавляем диалоговое поле на окно клиента (с типом размещения BorderLayout) по центру
         add(fieldInput, BorderLayout.SOUTH); // Добавляем поле ввода сообщений на юг окна клиента
         add(fieldNickname, BorderLayout.NORTH); // Добавляем поле никнейма на север окна клиента
-        add(testMode, BorderLayout.NORTH);
         setResizable(false);
 
         this.addWindowListener(new WindowListener() {
@@ -199,7 +197,15 @@ public class ChatServer extends JFrame implements TCPConnectionListener, ActionL
                 break;
             case SERVICE_MESSAGE_AUTHORIZATION:
                 ClientProfile clientProfile = (ClientProfile) msg.getObjT();
+                for(ClientProfile client : usersProfiles) {
+                    if (client.getNameUser().equals(clientProfile.getNameUser())) {
+                        connection.sendMessage(new Message(true, SERVICE_MESSAGE_IS_LOGGED));
+                        System.out.println(connection);
+                        break;
+                    }
+                }
                 connection.setClientProfile(clientProfile);
+                System.out.println(connection);
                 usersProfiles.add(connection.getClientProfile());
                 printMsg(usersProfiles.toString());
 //                sortedForDate(getMessages());
@@ -207,7 +213,6 @@ public class ChatServer extends JFrame implements TCPConnectionListener, ActionL
                 Message<ArrayList<Message>, Object> messageUpdateDialogues = new Message<>(messages, null, SERVICE_MESSAGE_UPDATE_DIALOGUES);
                 sendToAllConnections(messageUpdateList);
                 sendToAllConnections(messageUpdateDialogues);
-                break;
         }
     }
 
