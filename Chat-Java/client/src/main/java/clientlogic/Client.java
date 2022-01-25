@@ -118,9 +118,6 @@ public class Client implements TCPConnectionListener { // делаем насл�
                 }
                 controller.updateOutput(getMessagesList());
                 break;
-            case SERVICE_MESSAGE_IS_LOGGED:
-                System.out.println("Такой логин уже существует");
-                if(msg.isLogged()) WarningAlertExample.getWarningIsLogged();
         }
     }
 

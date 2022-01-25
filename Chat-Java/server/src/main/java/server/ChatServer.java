@@ -149,11 +149,11 @@ public class ChatServer extends JFrame implements TCPConnectionListener, ActionL
     }
 
     @Override
-    public synchronized void onConnectionReady(TCPConnection tcpConnection) { //Синхронизируем все методы tcpConnection, т.к. одними и теми же методами могут пользоваться несколько потоков
-        connections.add(tcpConnection); // Добавляем в коллекцию соединений новое соединение
-        printMsg("Client connected: " + tcpConnection); // Делаем рассылку все подключенным пользователям о создании нового соединения с клиентом
-        printMsg(connections.toString());
-    }
+    public synchronized void onConnectionReady(TCPConnection tcpConnection) {//Синхронизируем все методы tcpConnection, т.к. одними и теми же методами могут пользоваться несколько потоков
+               connections.add(tcpConnection); // Добавляем в коллекцию соединений новое соединение
+               printMsg("Client connected: " + tcpConnection); // Делаем рассылку все подключенным пользователям о создании нового соединения с клиентом
+               printMsg(connections.toString());
+       }
 
     @Override
     public synchronized void onReceivePackage(TCPConnection tcpConnection, Message msg) {
@@ -197,13 +197,6 @@ public class ChatServer extends JFrame implements TCPConnectionListener, ActionL
                 break;
             case SERVICE_MESSAGE_AUTHORIZATION:
                 ClientProfile clientProfile = (ClientProfile) msg.getObjT();
-                for(ClientProfile client : usersProfiles) {
-                    if (client.getNameUser().equals(clientProfile.getNameUser())) {
-                        connection.sendMessage(new Message(true, SERVICE_MESSAGE_IS_LOGGED));
-                        System.out.println(connection);
-                        break;
-                    }
-                }
                 connection.setClientProfile(clientProfile);
                 System.out.println(connection);
                 usersProfiles.add(connection.getClientProfile());

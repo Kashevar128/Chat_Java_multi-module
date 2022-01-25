@@ -39,6 +39,7 @@ public class Message<T, V> implements Serializable, Comparable<Message> {
         setLogged(flag);
     }
 
+
     public boolean isInOrOut() {
         return inOrOut;
     }

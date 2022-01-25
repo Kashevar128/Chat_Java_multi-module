@@ -38,7 +38,7 @@ public class DataBase implements AuthService {
     public static Connection getConnection() throws SQLException {
         @Language("SQL")
         String urlMySql = "jdbc:mysql://localhost:3306/test";
-        String urlH2 ="jdbc:h2:./Chat-Java/client/src/main/resources/db/demodb";
+        String urlH2 = "jdbc:h2:./Chat-Java/client/src/main/resources/db/demodb";
         String user = "root";
         String pass = "root";
         //return DriverManager.getConnection(urlMySql, user, pass);
@@ -49,7 +49,7 @@ public class DataBase implements AuthService {
         init();
         try (Connection connection = getConnection()) {
             @Language("SQL")
-            String query = "ALTER TABLE users ADD avatar TEXT NULL";
+            String query = "ALTER TABLE users ADD status INT";
             try (Statement statement = connection.createStatement()) {
                 statement.execute(query);
             }
@@ -61,7 +61,7 @@ public class DataBase implements AuthService {
         try (Connection connection = getConnection()) {
             @Language("SQL")
             String query_01 = "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTO_INCREMENT," +
-                    "name VARCHAR(100), password VARCHAR(100), avatar BLOB)";
+                    "name VARCHAR(100), password VARCHAR(100), avatar BLOB, status INTEGER)";
             try (Statement statement = connection.createStatement()) {
                 statement.execute(query_01);
             }
@@ -79,7 +79,8 @@ public class DataBase implements AuthService {
             try (Statement statement = connection.createStatement()) {
                 ResultSet rs = statement.executeQuery(query_02);
                 while (rs.next()) {
-                    System.out.println(rs.getInt("id") + " : " + rs.getString("name") + " ; " + rs.getString("password"));
+                    System.out.println(rs.getInt("id") + " : " + rs.getString("name") + " ; " + rs.getString("password") +
+                            ";" + rs.getInt("status"));
                 }
             }
         }
@@ -107,11 +108,12 @@ public class DataBase implements AuthService {
         }
         try (Connection connection = getConnection()) {
             @Language("SQL")
-            String query_01 = "INSERT INTO users (name, password, avatar) VALUES (?,?,?)";
+            String query_01 = "INSERT INTO users (name, password, avatar, status) VALUES (?,?,?,?)";
             try (PreparedStatement statement = connection.prepareStatement(query_01)) {
                 statement.setString(1, name);
                 statement.setString(2, pass);
                 statement.setBytes(3, Avatar.createAvatar(name));
+                statement.setInt(4, 1);
                 statement.executeUpdate();
                 logger.info("Операция добавления нового пользователя прошла успешно.");
                 InformationAlertExample.getInformationRegistrationComplete(name);
@@ -128,6 +130,7 @@ public class DataBase implements AuthService {
         init();
         try (Connection connection = getConnection()) {
             @Language("SQL")
+            String query_01 = "UPDATE users SET status = 1, WHERE name = name ";
             String query_02 = "SELECT * FROM users";
             try (Statement statement = connection.createStatement()) {
                 ResultSet rs = statement.executeQuery(query_02);
@@ -146,6 +149,7 @@ public class DataBase implements AuthService {
             }
         }
     }
+
 
     public static byte[] getAvatar(String name) throws Exception {
         init();
