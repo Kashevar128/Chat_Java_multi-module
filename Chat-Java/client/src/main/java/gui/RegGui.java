@@ -23,7 +23,10 @@ public class RegGui {
         stage.show();
 
         stage.setOnCloseRequest(event -> {
-            if (!InformationAlertExample.getInformationExit()) {event.consume();}
+            if (!WarningAlertExample.getWarningExit()) {
+                event.consume();
+                return;
+            }
             Launch.exitClient();
         });
 

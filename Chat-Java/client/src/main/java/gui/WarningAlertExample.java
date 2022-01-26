@@ -1,6 +1,9 @@
 package gui;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+
+import java.util.Optional;
 
 public class WarningAlertExample {
 
@@ -34,6 +37,18 @@ public class WarningAlertExample {
         alert.setContentText("Нажмите ОК для продолжения.");
 
         alert.showAndWait();
+    }
+
+    public static boolean getWarningExit() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Выход");
+        alert.setHeaderText("Вы точно хотите выйти из приложения?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            return true;
+        }
+        return false;
     }
 
 }

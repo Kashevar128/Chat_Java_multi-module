@@ -38,7 +38,10 @@ public class AuthGui {
         }).start();
 
         stage.setOnCloseRequest(event -> {
-            if (!InformationAlertExample.getInformationExit()) {event.consume();}
+            if (!WarningAlertExample.getWarningExit()) {
+                event.consume();
+                return;
+            }
             Launch.exitClient();
         });
 

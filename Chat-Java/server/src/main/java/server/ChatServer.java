@@ -1,7 +1,5 @@
 package server;
 
-import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
 import network.*;
 
 import javax.swing.*;
@@ -10,7 +8,6 @@ import java.awt.event.*;
 import java.io.*;
 import java.net.ServerSocket;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import static network.TypeMessage.*;
 

@@ -1,12 +1,15 @@
 package gui;
 
 import clientlogic.Client;
+import clientlogic.DataBase;
 import clientlogic.Launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+
+import java.sql.SQLException;
 
 
 public class ClientGui {
@@ -39,7 +42,16 @@ public class ClientGui {
         controller.setClient(client);
 
         stage.setOnCloseRequest(event -> {
-            if (!InformationAlertExample.getInformationExit()) {event.consume();}
+            if (!WarningAlertExample.getWarningExit()) {
+                event.consume();
+                return;
+            }
+            //            Launch.getFile().delete();
+            try {
+                DataBase.getInstance().updateStatus(nameUser, false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             System.out.println("Клиент закрыт");
             try {
                 client.setCorrectShutdown(true);
@@ -47,8 +59,6 @@ public class ClientGui {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-//            Launch.getFile().delete();
-         if (!InformationAlertExample.getInformationExit()) {event.consume();}
         });
     }
 

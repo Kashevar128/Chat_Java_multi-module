@@ -130,13 +130,13 @@ public class DataBase implements AuthService {
         init();
         try (Connection connection = getConnection()) {
             @Language("SQL")
-            String query_01 = "UPDATE users SET status = 1, WHERE name = name ";
             String query_02 = "SELECT * FROM users";
             try (Statement statement = connection.createStatement()) {
                 ResultSet rs = statement.executeQuery(query_02);
                 while (rs.next()) {
                     if (rs.getString("name").equals(name) && rs.getString("password").equals(pass)) {
                         logger.info("Пользователь опознан.");
+                        updateStatus(name, true);
                         InformationAlertExample.getInformationAuthComplete(name);
                         return true;
                     }
@@ -146,6 +146,23 @@ public class DataBase implements AuthService {
             } catch (SQLException e) {
                 logger.error("SQLException error", e);
                 return false;
+            }
+        }
+    }
+
+    public void updateStatus(String name, boolean onOrOffLine) throws ClassNotFoundException, SQLException {
+        init();
+        try (Connection connection1 = getConnection()) {
+            @Language("SQL")
+            String query_00 = "UPDATE users SET status = ? Where name = ?";
+            try (PreparedStatement preparedStatement = connection1.prepareStatement(query_00)) {
+                if (onOrOffLine) {
+                    preparedStatement.setInt(1, 3);
+                    preparedStatement.setString(2, name);
+                    preparedStatement.executeUpdate();
+                } else preparedStatement.setInt(1, 10);
+                preparedStatement.setString(2, name);
+                preparedStatement.executeUpdate();
             }
         }
     }
