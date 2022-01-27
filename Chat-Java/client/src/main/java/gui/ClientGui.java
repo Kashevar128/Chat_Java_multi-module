@@ -46,7 +46,7 @@ public class ClientGui {
                 event.consume();
                 return;
             }
-            //            Launch.getFile().delete();
+            Launch.getFile().delete();
             try {
                 DataBase.getInstance().updateStatus(nameUser, false);
             } catch (Exception e) {

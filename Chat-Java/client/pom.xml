@@ -21,7 +21,7 @@
                 </descriptorRefs>
                 <archive>
                     <manifest>
-                        <mainClass>gui.AuthGui</mainClass>
+                        <mainClass>clientlogic.Launch</mainClass>
                     </manifest>
                 </archive>
             </configuration>

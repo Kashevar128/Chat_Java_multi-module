@@ -17,7 +17,7 @@ public class WarningAlertExample {
 
     public static void getWarningLoginOrPasswordFalse() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setHeaderText("Неправильное имя или пароль.");
+        alert.setHeaderText("Что-то не так с вводимыми данными. Проверьте и введите еще раз))");
         alert.setContentText("Нажмите ОК для продолжения.");
 
         alert.showAndWait();
@@ -49,6 +49,14 @@ public class WarningAlertExample {
             return true;
         }
         return false;
+    }
+
+    public static void getWarningDoubleUser() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("Вы уже вошли в систему.");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
     }
 
 }

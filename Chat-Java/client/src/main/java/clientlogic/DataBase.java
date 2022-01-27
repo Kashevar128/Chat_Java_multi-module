@@ -135,6 +135,11 @@ public class DataBase implements AuthService {
                 ResultSet rs = statement.executeQuery(query_02);
                 while (rs.next()) {
                     if (rs.getString("name").equals(name) && rs.getString("password").equals(pass)) {
+                        if(rs.getInt("status") == 1) {
+                            WarningAlertExample.getWarningDoubleUser();
+                            logger.info("Вы уже вошли в систему");
+                            return false;
+                        }
                         logger.info("Пользователь опознан.");
                         updateStatus(name, true);
                         InformationAlertExample.getInformationAuthComplete(name);
@@ -157,10 +162,10 @@ public class DataBase implements AuthService {
             String query_00 = "UPDATE users SET status = ? Where name = ?";
             try (PreparedStatement preparedStatement = connection1.prepareStatement(query_00)) {
                 if (onOrOffLine) {
-                    preparedStatement.setInt(1, 3);
+                    preparedStatement.setInt(1, 1);
                     preparedStatement.setString(2, name);
                     preparedStatement.executeUpdate();
-                } else preparedStatement.setInt(1, 10);
+                } else preparedStatement.setInt(1, 0);
                 preparedStatement.setString(2, name);
                 preparedStatement.executeUpdate();
             }
