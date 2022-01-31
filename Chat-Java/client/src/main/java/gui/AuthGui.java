@@ -1,5 +1,6 @@
 package gui;
 
+import clientlogic.DataBase;
 import clientlogic.Launch;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -13,10 +14,13 @@ public class AuthGui {
 
     public AuthGui() throws Exception {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/registration.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/auth.fxml"));
         Parent auth = loader.load();
         authController = loader.getController();
 
+        authController.RemoteIP.setSelected(false);
+        authController.MySQL.setSelected(false);
+        authController.MySQL.setOnAction(event -> {DataBase.setMySql(authController.MySQL.isSelected());});
         stage = new Stage();
         stage.setTitle("Авторизация");
         stage.setScene(new Scene(auth));

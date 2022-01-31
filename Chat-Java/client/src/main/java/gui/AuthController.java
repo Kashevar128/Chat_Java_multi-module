@@ -16,7 +16,7 @@ public class AuthController {
     private String strPassword;
     public CheckBox RemoteIP;
     public CheckBox MySQL;
-    private AuthController authController;
+    private static AuthController authController;
 
     public AuthController() {
         authController = this;
@@ -62,7 +62,7 @@ public class AuthController {
         return strLogin;
     }
 
-    public AuthController getAuthController() {
+    public static AuthController getAuthController() {
         return authController;
     }
 

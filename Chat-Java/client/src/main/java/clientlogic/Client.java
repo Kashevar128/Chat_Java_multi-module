@@ -22,14 +22,6 @@ public class Client implements TCPConnectionListener { // делаем насл�
     private boolean correctShutdown;
     org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(Client.class);
 
-    static {
-        try {
-            IP_ADDR = InetAddress.getLocalHost().getHostAddress();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-    }
-
     private static final int PORT = 8189; // Переменная с портом
 
     private ClientGuiController controller;
@@ -40,7 +32,13 @@ public class Client implements TCPConnectionListener { // делаем насл�
     private Image ava;
 
 
-    public Client(ClientGuiController controller, String name, ClientGui clientGui) throws IOException {
+    public Client(ClientGuiController controller, String name, ClientGui clientGui){
+
+        try {
+            IP_ADDR = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
 
         this.clientGui = clientGui;
         this.controller = controller;

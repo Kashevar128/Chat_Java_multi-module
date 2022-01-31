@@ -30,7 +30,7 @@ public class RegistrationController {
             return;
         }
 
-        boolean reg = DataBase.getInstance().addUser(getStrLogin(), getStrPassword());
+        boolean reg = DataBase.getInstance().addUser(getStrLogin(), getStrPassword(), DataBase.isMySql());
         if (reg) {
             login.getScene().getWindow().hide();
             new ClientGui(getStrLogin(), DataBase.getAvatar(getStrLogin()));

@@ -2,9 +2,8 @@ package clientlogic;
 
 public interface AuthService {
 
-    public boolean addUser(String name, String pass) throws Exception;
+    public boolean addUser(String name, String pass, boolean MySQL) throws Exception;
 
     public boolean auth(String name, String pass) throws Exception;
 
-   // public void offLine(String name) throws Exception;
 }

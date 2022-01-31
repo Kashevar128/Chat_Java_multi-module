@@ -1,9 +1,6 @@
 package clientlogic;
 
-import gui.Avatar;
-import gui.ErrorAlertExample;
-import gui.InformationAlertExample;
-import gui.WarningAlertExample;
+import gui.*;
 import org.intellij.lang.annotations.Language;
 
 import java.sql.*;
@@ -12,6 +9,8 @@ import java.sql.*;
 public class DataBase implements AuthService {
 
     private static DataBase instance;
+
+    private static boolean mySql;
 
     org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(DataBase.class);
 
@@ -24,30 +23,37 @@ public class DataBase implements AuthService {
         resultSet();
     }
 
-    public static synchronized DataBase getInstance() throws Exception {
-        if (instance == null) instance = new DataBase();
+    public static synchronized DataBase getInstance() {
+        if (instance == null) {
+            try {
+                instance = new DataBase();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         return instance;
     }
 
-    private static void init() throws ClassNotFoundException {
-        //Class.forName("com.mysql.cj.jdbc.Driver");
-        Class.forName("org.h2.Driver");
+    private static void init(boolean mySQL) throws ClassNotFoundException {
+        if(mySQL) {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        }else Class.forName("org.h2.Driver");
     }
 
-
-    public static Connection getConnection() throws SQLException {
+    public static Connection getConnection(boolean mySql) throws SQLException {
         @Language("SQL")
         String urlMySql = "jdbc:mysql://localhost:3306/test";
         String urlH2 = "jdbc:h2:./Chat-Java/client/src/main/resources/db/demodb";
         String user = "root";
         String pass = "root";
-        //return DriverManager.getConnection(urlMySql, user, pass);
-        return DriverManager.getConnection(urlH2, "", "");
+        if(mySql) {
+            return DriverManager.getConnection(urlMySql, user, pass);
+        } else return DriverManager.getConnection(urlH2, "", "");
     }
 
     public static void addField() throws Exception {
-        init();
-        try (Connection connection = getConnection()) {
+        init(false);
+        try (Connection connection = getConnection(false)) {
             @Language("SQL")
             String query = "ALTER TABLE users ADD status INT";
             try (Statement statement = connection.createStatement()) {
@@ -57,8 +63,8 @@ public class DataBase implements AuthService {
     }
 
     private static void createTable() throws Exception {
-        init();
-        try (Connection connection = getConnection()) {
+        init(false);
+        try (Connection connection = getConnection(false)) {
             @Language("SQL")
             String query_01 = "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTO_INCREMENT," +
                     "name VARCHAR(100), password VARCHAR(100), avatar BLOB, status INTEGER)";
@@ -72,8 +78,8 @@ public class DataBase implements AuthService {
     }
 
     public static void resultSet() throws Exception {
-        init();
-        try (Connection connection = getConnection()) {
+        init(false);
+        try (Connection connection = getConnection(false)) {
             @Language("SQL")
             String query_02 = "SELECT * FROM users";
             try (Statement statement = connection.createStatement()) {
@@ -87,8 +93,8 @@ public class DataBase implements AuthService {
     }
 
     public static void delete(int ID) throws Exception {
-        init();
-        try (Connection connection = getConnection()) {
+        init(false);
+        try (Connection connection = getConnection(false)) {
             @Language("SQL")
             String query_00 = "DELETE FROM users WHERE id = ?";
             try (PreparedStatement statement = connection.prepareStatement(query_00)) {
@@ -100,13 +106,13 @@ public class DataBase implements AuthService {
 
 
     @Override
-    public boolean addUser(String name, String pass) throws Exception {
-        init();
+    public boolean addUser(String name, String pass, boolean mySQL) throws Exception {
+        init(DataBase.isMySql());
         if (auth(name, pass)) {
             WarningAlertExample.getWarningRepeatUser();
             return false;
         }
-        try (Connection connection = getConnection()) {
+        try (Connection connection = getConnection(DataBase.isMySql())) {
             @Language("SQL")
             String query_01 = "INSERT INTO users (name, password, avatar, status) VALUES (?,?,?,?)";
             try (PreparedStatement statement = connection.prepareStatement(query_01)) {
@@ -127,8 +133,8 @@ public class DataBase implements AuthService {
 
     @Override
     public boolean auth(String name, String pass) throws Exception {
-        init();
-        try (Connection connection = getConnection()) {
+        init(DataBase.isMySql());
+        try (Connection connection = getConnection(DataBase.isMySql())) {
             @Language("SQL")
             String query_02 = "SELECT * FROM users";
             try (Statement statement = connection.createStatement()) {
@@ -156,8 +162,8 @@ public class DataBase implements AuthService {
     }
 
     public void updateStatus(String name, boolean onOrOffLine) throws ClassNotFoundException, SQLException {
-        init();
-        try (Connection connection1 = getConnection()) {
+        init(DataBase.isMySql());
+        try (Connection connection1 = getConnection(DataBase.isMySql())) {
             @Language("SQL")
             String query_00 = "UPDATE users SET status = ? Where name = ?";
             try (PreparedStatement preparedStatement = connection1.prepareStatement(query_00)) {
@@ -174,8 +180,8 @@ public class DataBase implements AuthService {
 
 
     public static byte[] getAvatar(String name) throws Exception {
-        init();
-        try (Connection connection = getConnection()) {
+        init(DataBase.isMySql());
+        try (Connection connection = getConnection(DataBase.isMySql())) {
             @Language("SQL")
             String query = "SELECT * FROM users";
             try (Statement statement = connection.createStatement()) {
@@ -188,5 +194,11 @@ public class DataBase implements AuthService {
         return null;
     }
 
+    public static boolean isMySql() {
+        return mySql;
+    }
 
+    public static void setMySql(boolean mySql) {
+        DataBase.mySql = mySql;
+    }
 }

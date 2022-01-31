@@ -39,7 +39,7 @@
          <Font size="24.0" />
       </font>
    </Label>
-   <CheckBox layoutX="436.0" layoutY="68.0" mnemonicParsing="false" text="MySQL">
+   <CheckBox fx:id="MySQL" layoutX="436.0" layoutY="68.0" mnemonicParsing="false" text="MySQL">
       <font>
          <Font size="18.0" />
       </font>
