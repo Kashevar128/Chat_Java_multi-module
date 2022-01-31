@@ -26,7 +26,13 @@ public class Launch {
         if (!getFile().exists()) {
             try {
                 getFile().createNewFile();
-                Platform.startup(() -> new AuthGui());
+                Platform.startup(() -> {
+                    try {
+                        new AuthGui();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
             } catch (IOException e) {
                 e.printStackTrace();
             }

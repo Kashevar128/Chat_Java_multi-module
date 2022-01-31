@@ -2,8 +2,11 @@ package gui;
 
 import clientlogic.DataBase;
 import javafx.application.Platform;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import org.apache.commons.lang3.StringUtils;
+
+import java.awt.*;
 
 public class AuthController {
 
@@ -11,6 +14,13 @@ public class AuthController {
     public TextField password;
     private String strLogin;
     private String strPassword;
+    public CheckBox RemoteIP;
+    public CheckBox MySQL;
+    private AuthController authController;
+
+    public AuthController() {
+        authController = this;
+    }
 
     public void enter() throws Exception {
 
@@ -50,6 +60,10 @@ public class AuthController {
 
     public String getStrLogin() {
         return strLogin;
+    }
+
+    public AuthController getAuthController() {
+        return authController;
     }
 
     public String getStrPassword() {

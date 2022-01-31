@@ -7,19 +7,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class AuthGui {
     private Stage stage;
+    AuthController authController;
 
-    public AuthGui() {
+    public AuthGui() throws Exception {
 
-        Parent auth = null;
-        try {
-            auth = FXMLLoader.load(getClass().getResource("/fxml/auth.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/registration.fxml"));
+        Parent auth = loader.load();
+        authController = loader.getController();
+
         stage = new Stage();
         stage.setTitle("Авторизация");
         stage.setScene(new Scene(auth));
