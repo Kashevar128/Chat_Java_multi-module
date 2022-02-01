@@ -5,7 +5,6 @@ import javafx.application.Platform;
 import javafx.scene.image.Image;
 import network.*;
 
-import java.io.File;
 import java.io.IOException;
 
 import java.net.InetAddress;
@@ -17,12 +16,21 @@ import java.util.ArrayList;
 public class Client implements TCPConnectionListener { // делаем наследоваие от JFrame и осуществляем интерфейсы ActionListener и TCPConnectionListener
 
     private static String IP_ADDR;// 192.168.0.104 - доп. IP // Переменная c IP машины
+
+    static {
+        try {
+            IP_ADDR = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+    }
+
     private ArrayList<ClientProfile> usersList;
     private ArrayList<Message> messagesList;
     private boolean correctShutdown;
     org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(Client.class);
 
-    private static final int PORT = 8189; // Переменная с портом
+    private static int PORT = 8189; // Переменная с портом
 
     private ClientGuiController controller;
     private TCPConnection connection; // Поле для экземпляра канала
@@ -30,9 +38,21 @@ public class Client implements TCPConnectionListener { // делаем насл�
     private ClientProfile myClientProfile;
     private ClientGui clientGui;
     private Image ava;
+    private static boolean remoteServer;
 
 
     public Client(ClientGuiController controller, String name, ClientGui clientGui){
+
+        if(remoteServer) {
+            try {
+                IP_ADDR = AuthController.getAuthController().IP_server.getText();
+                String port = AuthController.getAuthController().PORT_server.getText();
+                PORT = Integer.parseInt(port);
+            } catch (Exception e) {
+                e.printStackTrace();
+                ErrorAlertExample.getErrorIncorrectData();
+            }
+        }
 
         try {
             IP_ADDR = InetAddress.getLocalHost().getHostAddress();
@@ -171,5 +191,13 @@ public class Client implements TCPConnectionListener { // делаем насл�
 
     public ArrayList<Message> getMessagesList() {
         return messagesList;
+    }
+
+    public static boolean isRemote() {
+        return remoteServer;
+    }
+
+    public static void setRemote(boolean remote) {
+        remoteServer = remote;
     }
 }

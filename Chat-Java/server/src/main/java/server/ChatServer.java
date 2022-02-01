@@ -226,7 +226,6 @@ public class ChatServer extends JFrame implements TCPConnectionListener, ActionL
 
 
     private static void codeReservFile(ArrayList<Message> arrayList) {
-//        sortedForDate(arrayList);
         System.out.println(arrayList);
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ChatServer.getFileReservServer()))) {
             oos.writeObject(arrayList);

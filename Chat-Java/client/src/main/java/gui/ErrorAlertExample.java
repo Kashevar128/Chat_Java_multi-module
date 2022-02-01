@@ -53,5 +53,15 @@ public class ErrorAlertExample {
 
     }
 
+    public static void getErrorIncorrectData() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Ошибка подключения.");
+        alert.setHeaderText("Не корректные данные IP и порт.");
+
+        alert.showAndWait();
+        Launch.exitClient();
+
+    }
+
 }
 

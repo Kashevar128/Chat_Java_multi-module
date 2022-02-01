@@ -40,15 +40,21 @@ public class DataBase implements AuthService {
         }else Class.forName("org.h2.Driver");
     }
 
-    public static Connection getConnection(boolean mySql) throws SQLException {
+    public static Connection getConnection(boolean mySql) {
         @Language("SQL")
-        String urlMySql = "jdbc:mysql://localhost:3306/test";
+        String urlMySql = "jdbc:mysql://localhost:3306/testsql";
         String urlH2 = "jdbc:h2:./Chat-Java/client/src/main/resources/db/demodb";
         String user = "root";
         String pass = "root";
-        if(mySql) {
-            return DriverManager.getConnection(urlMySql, user, pass);
-        } else return DriverManager.getConnection(urlH2, "", "");
+        try{
+            if(mySql) {
+                return DriverManager.getConnection(urlMySql, user, pass);
+            } else return DriverManager.getConnection(urlH2, "", "");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            ErrorAlertExample.getErrorConnectionSQLFatal();
+            return null;
+        }
     }
 
     public static void addField() throws Exception {
@@ -201,4 +207,6 @@ public class DataBase implements AuthService {
     public static void setMySql(boolean mySql) {
         DataBase.mySql = mySql;
     }
+
+
 }

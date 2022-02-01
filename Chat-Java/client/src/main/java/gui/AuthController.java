@@ -1,12 +1,16 @@
 package gui;
 
+import clientlogic.Client;
 import clientlogic.DataBase;
 import javafx.application.Platform;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import network.Message;
 import org.apache.commons.lang3.StringUtils;
 
 import java.awt.*;
+import java.io.*;
+import java.util.ArrayList;
 
 public class AuthController {
 
@@ -16,6 +20,10 @@ public class AuthController {
     private String strPassword;
     public CheckBox RemoteIP;
     public CheckBox MySQL;
+    public TextField IP_server;
+    public TextField PORT_server;
+    private String IP_serverStr;
+    private String PORT_serverStr;
     private static AuthController authController;
 
     public AuthController() {
@@ -26,6 +34,11 @@ public class AuthController {
 
         setStrLogin(login.getText());
         setStrPassword(password.getText());
+        setIP_serverStr(IP_server.getText());
+        setPORT_serverStr(PORT_server.getText());
+        String[] str = new String[] {getIP_serverStr(), getPORT_serverStr()};
+        authController.codeFile(str);
+        AuthGui.getMemoryFile().delete();
 
         boolean filter01 = ClientGuiController.filter(getStrLogin());
         boolean filter02 = ClientGuiController.filter(getStrPassword());
@@ -58,6 +71,17 @@ public class AuthController {
         new RegGui();
     }
 
+    public void select(boolean flag) {
+        Client.setRemote(flag);
+        if (flag) {
+            IP_server.setDisable(false);
+            PORT_server.setDisable(false);
+        } else {
+            IP_server.setDisable(true);
+            PORT_server.setDisable(true);
+        }
+    }
+
     public String getStrLogin() {
         return strLogin;
     }
@@ -77,4 +101,47 @@ public class AuthController {
     public void setStrPassword(String strPassword) {
         this.strPassword = StringUtils.strip(strPassword);
     }
+
+     public static boolean isFileEmpty(File file) {
+        return file.length() == 0;
+    }
+
+    public void setIP_serverStr(String IP_serverStr) {
+        this.IP_serverStr = StringUtils.strip(IP_serverStr);
+    }
+
+    public void setPORT_serverStr(String PORT_serverStr) {
+        this.PORT_serverStr = StringUtils.strip(PORT_serverStr);
+    }
+
+    public String getIP_serverStr() {
+        return IP_serverStr;
+    }
+
+    public String getPORT_serverStr() {
+        return PORT_serverStr;
+    }
+
+    public void codeFile(String[] array) {
+        System.out.println(array);
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(AuthGui.getMemoryFile()))) {
+            oos.writeObject(array);
+            oos.flush();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public String[] decodeFile() {
+        String[] array = new String[2];
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(AuthGui.getMemoryFile()))) {
+            array = (String[]) ois.readObject();
+            System.out.println("Извлеченный файл\n" + array);
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return array;
+    }
+
+
 }

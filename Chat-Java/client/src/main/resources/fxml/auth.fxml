@@ -54,7 +54,7 @@
          <Font size="18.0" />
       </font>
    </Label>
-   <TextField layoutX="436.0" layoutY="209.0" prefHeight="18.0" prefWidth="194.0">
+   <TextField fx:id="IP_server" layoutX="436.0" layoutY="209.0" prefHeight="30.0" prefWidth="194.0" AnchorPane.bottomAnchor="138.0" AnchorPane.leftAnchor="436.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="209.0">
       <font>
          <Font size="14.0" />
       </font>
@@ -64,7 +64,7 @@
          <Font size="18.0" />
       </font>
    </Label>
-   <TextField layoutX="436.0" layoutY="286.0" prefHeight="30.0" prefWidth="79.0">
+   <TextField fx:id="PORT_server" layoutX="436.0" layoutY="286.0" prefHeight="30.0" prefWidth="79.0">
       <font>
          <Font size="14.0" />
       </font>
