@@ -108,7 +108,7 @@ public class ChatServer extends JFrame implements TCPConnectionListener, ActionL
         saveThread = new Thread(() -> {
             while (true) {
                 try {
-                    Thread.sleep(30000);
+                    Thread.sleep(300000);
                     if(!getMessages().isEmpty()) {
 //                        sortedForDate(getMessages());
                         codeReservFile(getMessages());

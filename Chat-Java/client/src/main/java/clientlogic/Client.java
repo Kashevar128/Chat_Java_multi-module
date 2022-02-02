@@ -43,7 +43,7 @@ public class Client implements TCPConnectionListener { // делаем насл�
 
     public Client(ClientGuiController controller, String name, ClientGui clientGui){
 
-        if(remoteServer) {
+        if(isRemote()) {
             try {
                 IP_ADDR = AuthController.getAuthController().IP_server.getText();
                 String port = AuthController.getAuthController().PORT_server.getText();

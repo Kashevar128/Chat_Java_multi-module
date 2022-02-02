@@ -15,15 +15,24 @@ public class AuthGui {
     private Stage stage;
     AuthController authController;
     private static File memoryFile;
+    private static boolean remoteServer;
 
     public static File getMemoryFile() {
         return memoryFile;
     }
 
+    public static void setRemoteServer(boolean remoteServer) {
+        AuthGui.remoteServer = remoteServer;
+    }
+
+    public static boolean isRemoteServer() {
+        return remoteServer;
+    }
+
     public AuthGui() throws Exception {
 
         memoryFile = new File("Chat-java/client/src/main/resources/memory.txt");
-        if (!memoryFile.exists()) {
+        if (memoryFile.exists()) {
             try {
                 memoryFile.createNewFile();
             } catch (IOException e) {

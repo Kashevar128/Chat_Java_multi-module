@@ -34,12 +34,13 @@ public class AuthController {
 
         setStrLogin(login.getText());
         setStrPassword(password.getText());
-        setIP_serverStr(IP_server.getText());
-        setPORT_serverStr(PORT_server.getText());
-        String[] str = new String[] {getIP_serverStr(), getPORT_serverStr()};
-        authController.codeFile(str);
-        AuthGui.getMemoryFile().delete();
 
+        if(AuthGui.isRemoteServer()) {
+            setIP_serverStr(IP_server.getText());
+            setPORT_serverStr(PORT_server.getText());
+            String[] str = new String[] {getIP_serverStr(), getPORT_serverStr()};
+            codeFile(str);
+        }
         boolean filter01 = ClientGuiController.filter(getStrLogin());
         boolean filter02 = ClientGuiController.filter(getStrPassword());
         if (!filter01 || !filter02) {
@@ -73,6 +74,7 @@ public class AuthController {
 
     public void select(boolean flag) {
         Client.setRemote(flag);
+        AuthGui.setRemoteServer(flag);
         if (flag) {
             IP_server.setDisable(false);
             PORT_server.setDisable(false);
