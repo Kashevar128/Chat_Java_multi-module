@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="622.0" prefWidth="1066.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ClientGuiController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="622.0" prefWidth="1066.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ClientGuiController">
    <left>
        <HBox prefHeight="702.0" prefWidth="373.0" BorderPane.alignment="CENTER">
            <VBox alignment="CENTER" prefHeight="702.0" prefWidth="81.0" styleClass="dark-gray-background" stylesheets="@../values/style.css">
@@ -69,18 +69,18 @@
                        <Insets top="20.0" />
                    </VBox.margin>
                </Pane>
-            <ListView fx:id="listUsers" prefHeight="556.0" prefWidth="299.0" styleClass="gray-background-color" stylesheets="@../values/style.css" />
+            <ListView fx:id="listUsers" prefHeight="556.0" prefWidth="299.0" stylesheets="@../values/style.css" />
            </VBox>
        </HBox>
    </left>
    <center>
        <VBox prefHeight="592.0" prefWidth="585.0" BorderPane.alignment="CENTER">
-           <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="549.0">
+           <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="549.0" styleClass="dark-gray-background" stylesheets="@../values/style.css">
             <ImageView fx:id="yourAvatar" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin></ImageView>
-            <Label fx:id="name" prefHeight="17.0" prefWidth="306.0" text="asdadas" textFill="#544f4f">
+            <Label fx:id="name" prefHeight="17.0" prefWidth="306.0" text="asdadas" textFill="#a18e8e">
                <font>
                   <Font name="Broadway" size="18.0" />
                </font>
@@ -99,7 +99,7 @@
                </opaqueInsets>
                </Label>
            </HBox>
-         <ListView fx:id="output" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="484.0" prefWidth="566.0" styleClass="ring-color" stylesheets="@../values/style.css" />
+         <ListView fx:id="output" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="484.0" prefWidth="566.0" snapToPixel="false" styleClass="ring-color" stylesheets="@../values/style.css" />
            <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="561.0">
                <ImageView fitHeight="55.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                    <HBox.margin>

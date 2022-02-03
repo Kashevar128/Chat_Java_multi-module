@@ -60,6 +60,11 @@ public class ClientGui {
                 e.printStackTrace();
             }
         });
+        controller.output.setOnMouseClicked(event -> {
+            System.out.println(controller.output.getSelectionModel().getSelectedIndex());
+            int a = controller.output.getSelectionModel().getSelectedIndex();
+            controller.output.getSelectionModel().clearSelection(a);
+        });
     }
 
     public String getNameUser() {
