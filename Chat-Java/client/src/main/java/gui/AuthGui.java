@@ -16,6 +16,7 @@ public class AuthGui {
     AuthController authController;
     private static File memoryFile;
     private static boolean remoteServer;
+    private static AuthGui authGui;
 
     public static File getMemoryFile() {
         return memoryFile;
@@ -25,11 +26,20 @@ public class AuthGui {
         AuthGui.remoteServer = remoteServer;
     }
 
+    public static AuthGui getAuthGui() {
+        return authGui;
+    }
+
+    public AuthController getAuthController() {
+        return authController;
+    }
+
     public static boolean isRemoteServer() {
         return remoteServer;
     }
 
     public AuthGui() throws Exception {
+        authGui = this;
 
         memoryFile = new File("Chat-java/client/src/main/resources/memory.txt");
         if (memoryFile.exists()) {
@@ -85,6 +95,10 @@ public class AuthGui {
             Launch.exitClient();
         });
 
+    }
+
+    public void show() {
+      stage.show();
     }
 }
 

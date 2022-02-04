@@ -61,8 +61,8 @@ public class AuthController {
                 }
             });
         } else {
-            login.clear();
-            password.clear();
+//            login.clear();
+//            password.clear();
             WarningAlertExample.getWarningLoginOrPasswordFalse();
         }
     }

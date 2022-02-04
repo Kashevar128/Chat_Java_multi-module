@@ -114,7 +114,7 @@ public class DataBase implements AuthService {
     @Override
     public boolean addUser(String name, String pass, boolean mySQL) throws Exception {
         init(DataBase.isMySql());
-        if (auth(name, pass)) {
+        if (repeatUser(name)) {
             WarningAlertExample.getWarningRepeatUser();
             return false;
         }
@@ -165,6 +165,23 @@ public class DataBase implements AuthService {
                 return false;
             }
         }
+    }
+
+    public boolean repeatUser(String name) throws Exception {
+        init(DataBase.isMySql());
+        try (Connection connection = getConnection(DataBase.isMySql())) {
+            @Language("SQL")
+                    String query_00 = "SELECT * FROM users";
+            try (Statement statement = connection.createStatement()) {
+                ResultSet rs = statement.executeQuery(query_00);
+                while (rs.next()) {
+                    if (rs.getString("name").equals(name)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     public void updateStatus(String name, boolean onOrOffLine) throws ClassNotFoundException, SQLException {

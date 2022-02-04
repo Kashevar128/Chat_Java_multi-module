@@ -1,6 +1,7 @@
 package gui;
 
 import clientlogic.DataBase;
+import clientlogic.Launch;
 import javafx.scene.control.TextField;
 import org.apache.commons.lang3.StringUtils;
 
@@ -34,6 +35,7 @@ public class RegistrationController {
         if (reg) {
             login.getScene().getWindow().hide();
             new ClientGui(getStrLogin(), DataBase.getAvatar(getStrLogin()));
+
             DataBase.resultSet();
         }
     }
@@ -56,5 +58,11 @@ public class RegistrationController {
 
     public void setStrPassword(String strPassword) {
         this.strPassword = StringUtils.strip(strPassword);
+    }
+
+    public void back() {
+        Launch.getFile().delete();
+        login.getScene().getWindow().hide();
+        AuthGui.getAuthGui().show();
     }
 }

@@ -19,7 +19,7 @@
    <left>
        <HBox prefHeight="702.0" prefWidth="373.0" BorderPane.alignment="CENTER">
            <VBox alignment="CENTER" prefHeight="702.0" prefWidth="81.0" styleClass="dark-gray-background" stylesheets="@../values/style.css">
-               <Pane prefHeight="308.0" prefWidth="91.0" />
+               <Pane prefHeight="308.0" prefWidth="91.0" styleClass="background" stylesheets="@../values/style.css" />
                <ImageView fitHeight="55.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                    <Image url="@../img/chat_bubble_48px.png" />
                </ImageView>
@@ -37,7 +37,7 @@
                    <Image url="@../img/exit_icon_143020.png" />
                </ImageView>
            </VBox>
-           <VBox prefHeight="622.0" prefWidth="306.0" styleClass="gray-background-color" stylesheets="@../values/style.css">
+           <VBox prefHeight="622.0" prefWidth="282.0" styleClass="gray-background-color" stylesheets="@../values/style.css">
                <HBox alignment="CENTER" prefHeight="37.0" prefWidth="269.0">
                    <opaqueInsets>
                        <Insets />
@@ -69,14 +69,15 @@
                        <Insets top="20.0" />
                    </VBox.margin>
                </Pane>
-            <ListView fx:id="listUsers" prefHeight="556.0" prefWidth="299.0" stylesheets="@../values/style.css" />
+            <ListView fx:id="listUsers" prefHeight="556.0" prefWidth="280.0" stylesheets="@../values/style.css" />
            </VBox>
+         <VBox prefHeight="622.0" prefWidth="10.0" styleClass="dark-gray-background" stylesheets="@../values/style.css" />
        </HBox>
    </left>
    <center>
-       <VBox prefHeight="592.0" prefWidth="585.0" BorderPane.alignment="CENTER">
-           <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="549.0" styleClass="dark-gray-background" stylesheets="@../values/style.css">
-            <ImageView fx:id="yourAvatar" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+       <VBox prefHeight="622.0" prefWidth="642.0" BorderPane.alignment="CENTER">
+           <HBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="693.0" styleClass="dark-gray-background" stylesheets="@../values/style.css">
+            <ImageView fx:id="yourAvatar" fitHeight="46.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin></ImageView>
@@ -87,7 +88,7 @@
                <HBox.margin>
                   <Insets left="30.0" />
                </HBox.margin></Label>
-               <Label prefHeight="28.0" prefWidth="70.0" text="Online" textFill="#00000087">
+               <Label prefHeight="28.0" prefWidth="70.0" text="Online" textFill="#ddd0d087">
                    <font>
                        <Font name="Ebrima Bold" size="14.0" />
                    </font>
@@ -99,7 +100,7 @@
                </opaqueInsets>
                </Label>
            </HBox>
-         <ListView fx:id="output" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="484.0" prefWidth="566.0" snapToPixel="false" styleClass="ring-color" stylesheets="@../values/style.css" />
+         <ListView fx:id="output" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="482.0" prefWidth="675.0" snapToPixel="false" styleClass="ring-color" stylesheets="@../values/style.css" />
            <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="561.0">
                <ImageView fitHeight="55.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                    <HBox.margin>

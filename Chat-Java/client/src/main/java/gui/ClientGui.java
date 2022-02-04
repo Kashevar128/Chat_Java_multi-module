@@ -18,8 +18,14 @@ public class ClientGui {
     private Client client;
     private String nameUser;
     private byte[] avatar;
+    private static ClientGui clientGui;
+
+    public ClientGuiController getController() {
+        return controller;
+    }
 
     public ClientGui(String name, byte[] avatar) throws Exception {
+        clientGui = this;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/chatWork.fxml"));
         Parent chat = loader.load();
         controller = loader.getController();
@@ -62,8 +68,8 @@ public class ClientGui {
         });
         controller.output.setOnMouseClicked(event -> {
             System.out.println(controller.output.getSelectionModel().getSelectedIndex());
-            int a = controller.output.getSelectionModel().getSelectedIndex();
-            controller.output.getSelectionModel().clearSelection(a);
+            controller.output.getSelectionModel().clearSelection();
+            controller.listUsers.getSelectionModel().clearSelection();
         });
     }
 
@@ -81,5 +87,9 @@ public class ClientGui {
 
     public Client getClient() {
         return client;
+    }
+
+    public static ClientGui getClientGui() {
+        return clientGui;
     }
 }
