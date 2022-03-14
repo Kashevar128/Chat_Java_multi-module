@@ -49,7 +49,6 @@ public class ErrorAlertExample {
         alert.setContentText("Нажмите ОК для выхода из приложения.");
 
         alert.showAndWait();
-        Launch.exitClient();
 
     }
 

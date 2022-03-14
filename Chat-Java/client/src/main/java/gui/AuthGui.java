@@ -15,15 +15,10 @@ public class AuthGui {
     private Stage stage;
     AuthController authController;
     private static File memoryFile;
-    private static boolean remoteServer;
     private static AuthGui authGui;
 
     public static File getMemoryFile() {
         return memoryFile;
-    }
-
-    public static void setRemoteServer(boolean remoteServer) {
-        AuthGui.remoteServer = remoteServer;
     }
 
     public static AuthGui getAuthGui() {
@@ -32,10 +27,6 @@ public class AuthGui {
 
     public AuthController getAuthController() {
         return authController;
-    }
-
-    public static boolean isRemoteServer() {
-        return remoteServer;
     }
 
     public AuthGui() throws Exception {
@@ -63,13 +54,6 @@ public class AuthGui {
             authController.IP_server.setText(arr[0]);
             authController.PORT_server.setText(arr[1]);
         }
-
-        authController.RemoteIP.setOnAction(event -> {
-            authController.select(authController.RemoteIP.isSelected());
-        });
-        authController.MySQL.setOnAction(event -> {
-            DataBase.setMySql(authController.MySQL.isSelected());
-        });
         stage = new Stage();
         stage.setTitle("Авторизация");
         stage.setScene(new Scene(auth));
